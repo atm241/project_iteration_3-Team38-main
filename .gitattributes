@@ -1,0 +1,21 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.java text
+*.md text
+*.txt text
+*.js text
+*.html text
+*.gradle text
+*.xml text
+*.properties text
+Dockerfile text
+gradlew text
+gradlew.bat text
+.gitignore text
+.gitattributes text
+
+# set files that are binary
+*.jar binary

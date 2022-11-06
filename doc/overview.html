@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>Visual Transit Simulator Documentation</title>
+</head>
+<body>
+  <h1>Introduction</h1>
+  <h2>Description of the VTS Software</h2>
+  <p>The VTS software models bus transit around the University of Minnesota campus. The software simulates the behavior of busses and passengers on campus. Specifically, the busses go along a route, make stops, and pick up/drop off passengers. The simulation operates over a certain number of time units. In each time unit, the VTS software updates the state of the simulation by creating passengers at stops, moving busses along the routes, allowing a bus to pick up passengers at a stop, etc. The simulation is configured using a configuration file that specifies the simulation routes, the stops of the routes, and how likely it is that a passenger will show up at a certain stop in each time unit. Routes must be defined in pairs, that is, there should be both an outgoing and incoming route and the routes should be specified one after the other. The ending stop of the outgoing route should be at the same location as the starting stop of the incoming route and the ending stop of the incoming route should be at the same location as the starting stop of the outgoing route. However, stops between the starting and ending stops of outgoing and incoming routes can be at different locations. After a bus has passed a stop, it is possible for passengers to show up at stops that the bus has already passed. For this reason, the simulator supports the creation of multiple busses and these busses will go and pick up the new passengers. Each bus has its own understanding of its own route, but the stops have relationships with multiple buses. Buses do not make more than one trip through their routes. When a bus finish both of its routes (outbound and inbound), the bus exits the simulation.
+</p>
+<p>
+  The VTS software is divided into two main modules: the visualization module and the simulator module. The visualization module displays the state of the simulation in a browser, while the simulator module performs the simulation. The visualization module is a web client application that runs in a browser and it is written in Javascript and HTML. The visualization module code is inside the <code>web_graphics</code> directory. The simulator module is a web server application written in Java. The simulator module code is inside the <code>edu.umn.cs.csci3081w.project</code> package. The simulator module is divided into two components: domain classes and the web server. The domain classes model real-world entities (e.g., the concept of a bus) and the code for the classes is inside the <code>edu.umn.cs.csci3081w.project.model</code> package. The web server includes the code that orchestrates the simulation and the code is inside the <code>edu.umn.cs.csci3081w.project.webserver</code> package.</p>
+  <h2>Configuring the VTS Software</h2>
+  The VTS software can be configured using a <code>config.txt</code> configuration file. The file contains routes and stops information.
+  <h2>Building the VTS Software</h2>
+  <p>To build the simulator module you should run the command <code>./gradlew assemble</code>.
+  <h2>Running the VTS Software</h2>
+  <p>To run the VTS software, you have to first start the simulator module and then start the visualization module. To start the simulator module you should run the command <code>./gradlew appRun</code>. To start the visualization module, open a browser and paste the link http://localhost:7777/project/web_graphics/project.html in its search bar.</p>
+  <h2>Simulation Data</h2>
+  <p>The simulation data for buses and stops is stored in a csv file named <code>"SimData.csv"</code> under "dir".</p>
+  <h1>UML Class Diagram for Domain Classes</h1>
+  <img src="domain_diagram.png" alt="UML Class Diagram for Domain Classes" width="800" height="600">
+  <p>For the domain diagram in the final iteration of the project the big changes that we were looking at is the BusDecorator Class that extends our pre-existing BusData Class. This class also uses the two additional classes that we have here both MaroonBusDecorator as well as GoldBusDecorator. Theses classes are used for set decorators that can be uses on buses. Othere notable changes overall to this diagram in the UML are the minor changes to the BusObserver structure
+    as well as the addition of the BusDeploymentStrategy and Bus Creator which both required a few more classes to implement. The deployment strategy was able to find a strategy for the bus' deployment based on the time of day and send it to buses of any size small, regular, and large. The Bus creator that creates the buses now implements these times of days using the timeofdayConcreteBusCreator which uses the OverallBusCreator and BusCreator to makes buses that we can
+    use in the simulator.
+  </p>
+  <h1>UML Class Diagram for Web Server Classes</h1>
+  <img src="webserver_diagram.png" alt="UML Class Diagram for Web Server Classes" width="1000" height="600">
+  <p>There was not much change when looking at what we did in terms of the webserver graphs this time around the main addtition that we made here was the addition of the printer class.
+  </p>
+</body>
+</html>
